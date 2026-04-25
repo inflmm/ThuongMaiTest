@@ -1,0 +1,101 @@
+1. Admin (Don gian)
+- id (pk)
+- name
+- email (unq)
+- password
+- phone
+- status
+    - Active
+    - Inactive
+- type
+    - Admin
+    - Staff
+- created_at
+- updated_at
+
+2. User
+- id (pk)
+- name
+- email (unq)
+- password
+- phone
+- status
+    - Active
+    - Inactive
+- created_at
+- updated_at
+
+3. Products
+- id
+- name
+- slug (unq) // chuoi id dung cho sale
+- description
+- summary
+- stock (qty)
+- price
+- discounted_price (opt)
+- images // source link
+- category_id (fk)
+- brand_id (fk)
+- status
+    - Active
+    - Inactive
+- created_at
+- updated_at
+
+4. Brands
+- id (pk)
+- name
+- slug (unq)
+- status
+    - Active
+    - Inactive
+- created_at
+- updated_at
+
+5. Categories
+- id (pk)
+- name
+- slug (unq)
+- status
+    - Active
+    - Inactive
+- created_at
+- updated_at
+
+6. Reviews
+- id (pk)
+- user_id (fk)
+- product_id (fk)
+- comment
+- rating
+- created_at
+- updated_at
+
+7. Orders
+- id (pk)
+- user_id (fk)
+- status
+    - Processing
+    - Confirmed
+    - Shipping
+    - Delivered
+    - Cancelled
+- created_at
+- updated_at
+
+8. Order_details
+- id (pk)
+- order_id (fk)
+- product_id (fk)
+- qty
+- price
+- total
+- created_at
+- updated_at
+
+9. Shopping_cart
+- 
+
+10. Shopping_cart_details
+-
