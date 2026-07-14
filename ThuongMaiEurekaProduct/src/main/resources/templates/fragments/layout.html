@@ -13,8 +13,8 @@
 
 	<div th:fragment="topheader_fragment" class="top-header">
 		<div class="container-fluid">
-			<a class="top-header" th:href="@{/homepage}" aria-label="PC GVN Tháng 11">
-				<img class="top-header" th:src="@{/assets/image/gearvn-pc-gvn-t11-topbar.png}" alt="PC GVN Tháng 11">
+			<a class="top-header" th:href="@{/homepage}" aria-label="Top banner">
+				<img class="top-header" th:src="@{/assets/image/prod_16_6tuek35vd6lp5v66rfy2kr09_master.jpg}" alt="Top banner">
 			</a>
 		</div>
 	</div>
@@ -27,7 +27,7 @@
 					<div class="main-header-left">
 						<div class="header-logo">
 							<a class="header-logo__link" th:href="@{/homepage}"> <img class="header-logo"
-									th:src="@{/assets/image/GearVNLogo.svg}" alt="GearVN Logo">
+									th:src="@{/assets/image/eslint-16-svgrepo-com.svg}" alt="Web Logo">
 							</a>
 						</div>
 						<div class="category-btn grey-bg">
@@ -200,7 +200,7 @@
 							<span class="icon"><i class="fa-solid fa-tags"></i></span>
 							<span class="text">Hot Deal | Laptop</span></a>
 					</li>
-					<li class="item-sub-header sh-3"><a th:href="@{/homepage}">
+					<li class="item-sub-header sh-3"><a th:href="@{/blogs/all}">
 							<span class="icon"><i class="fa-regular fa-newspaper"></i></span>
 							<span class="text">Tin tức</span></a>
 					</li>
@@ -223,13 +223,13 @@
 	<div th:fragment="sidebanner_fragment" class="side-banner">
 
 		<div class="banner_left">
-			<a th:href="@{/homepage}"> <img class="banner" th:src="@{/assets/image/gearvn-pc-gvn-sticky-t1-26.png}"
-					alt="PC GVN Tháng 1/26">
+			<a th:href="@{/homepage}"> <img class="banner" th:src="@{/assets/image/prod_13_cylkwlg0b7h2yowden4qlr7d_grande.webp}"
+					alt="Ảnh banner trái">
 			</a>
 		</div>
 		<div class="banner_right">
 			<a th:href="@{/homepage}"> <img class="banner"
-					th:src="@{/assets/image/gearvn-laptop-gaming-sticky-t1-26.png}" alt="Laptop gaming Tháng 1/26">
+					th:src="@{/assets/image/prod_14_ynr1u6wadch3zsooiiue14gy_grande.webp}" alt="Ảnh banner phải">
 			</a>
 		</div>
 		<div class="popup">
@@ -245,6 +245,10 @@
 
 	<footer th:fragment="footer_fragment" class="footer-container">
 		<p>&copy; 2026 ThuongMaiTest</p>
+		<div><a th:href="@{/blogs/all}">
+				<span class="icon"><i class="fa-regular fa-newspaper"></i></span>
+				<span class="text">Tin tức</span>
+			</a></div>
 	</footer>
 
 </body>

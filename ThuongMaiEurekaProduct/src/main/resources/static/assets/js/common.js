@@ -1,11 +1,18 @@
 
 
 //const API_BASE_URL = 'http://localhost:8080';
-const API_BASE_URL = 'http://192.168.1.18:8080';
+const API_BASE_URL = 'https://192.168.1.9:8443';
 
 // Gắn biến api ở mức cấp cao nhất, phòng không lấy được const API_BASE_URL
 window.API_BASE_URL = window.API_BASE_URL || API_BASE_URL;
 
+// --- BIẾN TOÀN CỤC DÙNG CHUNG ---
+let banners = []; 
+let isBannerScrolled = false; // Theo dõi trạng thái để tránh classList.add liên tục
+let lastCommonRun = 0;
+const commonFpsLimit = 16; 
+let commonSt = 0; 
+let tickingCommon = false;
 const CONTAINER = document.getElementById('product-list-container');
 
 // Hàm xử lý nối URL
@@ -15,21 +22,34 @@ function joinUrl(base, path) {
 }
 
 window.addEventListener('scroll', function () {
-    // 1. Lấy tất cả các Side Banner
-    const banners = document.querySelectorAll('.side-banner');
+    let now = performance.now();
+    if (now - lastCommonRun < commonFpsLimit) return;
 
-    // 2. Kiểm tra vị trí cuộn của người dùng (tính bằng pixel)
-    const scrollPos = window.scrollY;
+    if (!tickingCommon) {
+        window.requestAnimationFrame(() => {
+            commonSt = window.pageYOffset || document.documentElement.scrollTop;
 
-    // 3. Nếu cuộn xuống quá 50px (chiều cao banner xanh chẳng hạn)
-    if (scrollPos > 50) {
-        banners.forEach(banner => {
-            banner.classList.add('scrolled'); // Thêm class để đổi 'top' thành 100px
+            // Kiểm tra ngưỡng 50px
+            if (commonSt > 50) {
+                // Chỉ thực hiện nếu trước đó chưa ở trạng thái scrolled
+                if (!isBannerScrolled) {
+                    let i = banners.length;
+                    while(i--) banners[i].classList.add('scrolled');
+                    isBannerScrolled = true;
+                }
+            } else {
+                // Chỉ thực hiện nếu trước đó đang ở trạng thái scrolled
+                if (isBannerScrolled) {
+                    let i = banners.length;
+                    while(i--) banners[i].classList.remove('scrolled');
+                    isBannerScrolled = false;
+                }
+            }
+
+            tickingCommon = false;
+            lastCommonRun = performance.now();
         });
-    } else {
-        banners.forEach(banner => {
-            banner.classList.remove('scrolled'); // Xóa class để về lại 195px
-        });
+        tickingCommon = true;
     }
 });
 
@@ -234,6 +254,9 @@ window.addEventListener('cartUpdated', refreshCartBadge);
 
 // 4. Khi tải trang lần đầu
 document.addEventListener('DOMContentLoaded', () => {
+    // 1. Cache các Side Banner ngay khi load trang
+    banners = document.querySelectorAll('.side-banner');
+
     const isLoggedIn = checkUserLoginStatus();
     // Nếu là User và chưa có cache, thì mới fetch API 1 lần duy nhất
     if (isLoggedIn && localStorage.getItem('user_cart_count') === null) {

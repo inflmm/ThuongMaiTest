@@ -64,24 +64,27 @@ const overlayBtnNext = document.getElementById('overlay-btn-next');
 function renderGallery(product) {
     const masterFiles = product.masterFiles || [];
     const folderPath = product.image_folder_path;
-
-    // Render Master (Click để mở Overlay)
-    masterContainer.innerHTML = masterFiles.map((fileName, index) => {
-        const fullPath = joinUrl(API_BASE_URL, `${folderPath}/master/${fileName}`);
-        return `<img src="${fullPath}" class="master-item" id="master-img-${index}" 
-        onclick="openOverlay(${index})"
-        onmousedown="movedThumb = false;">`;
-    }).join('');
+    //console.log("Render Gallery với masterFiles:", masterFiles, "và folderPath:", folderPath);
 
     // Render Thumbnail
     thumbContainer.innerHTML = masterFiles.map((fileName, index) => {
-        const compactFile = fileName.replace('_master.jpg', '_compact.jpg');
+        const compactFile = fileName.replace('_master.webp', '_compact.webp');
         const compactPath = joinUrl(API_BASE_URL, `${folderPath}/compact/${compactFile}`);
         return `
             <div class="thumb-item ${index === 0 ? 'active' : ''}" onclick="scrollToMaster(${index}, this)">
                 <img src="${compactPath}">
             </div>`;
     }).join('');
+
+    // Render Master (Click để mở Overlay)
+    masterContainer.innerHTML = masterFiles.map((fileName, index) => {
+        const compactFile = fileName.replace('_master.webp', '_grande.webp');
+        const fullPath = joinUrl(API_BASE_URL, `${folderPath}/grande/${compactFile}`);
+        return `<img src="${fullPath}" class="master-item" id="master-img-${index}" 
+        onclick="openOverlay(${index})"
+        onmousedown="movedThumb = false;">`;
+    }).join('');
+
 
     
     initInertiaDrag(thumbContainer); // Kích hoạt kéo mượt cho Thumbnail
@@ -154,7 +157,7 @@ function openOverlay(index) {
 // 2. Hàm chuyển ảnh có hoạt ảnh (Fix lỗi tự động zoom)
 
 // Hàm cập nhật số thứ tự ảnh (Vd: 2 / 12)
-function updateOverlayCounter() {
+async function updateOverlayCounter() {
     const counter = document.getElementById('overlay-counter');
     const masterImgs = document.querySelectorAll('.master-item');
     if (counter && masterImgs.length > 0) {
@@ -255,7 +258,7 @@ function applyInertiaThumb(slider) {
 }
 
 // Cập nhật hàm scrollToMaster để đồng bộ thumbnail
-function scrollToMaster(index) {
+async function scrollToMaster(index) {
     const masterImgs = document.querySelectorAll('.master-item');
     if (index < 0 || index >= masterImgs.length) return;
 
@@ -280,11 +283,11 @@ function scrollToMaster(index) {
 }
 
 // Hàm scrollMasterBtn hiện tại của bạn cần gọi scrollToMaster
-function scrollMasterBtn(direction) {
+async function scrollMasterBtn(direction) {
     const masterImgs = document.querySelectorAll('.master-item');
     let newIndex = currentMasterIndex + direction;
     if (newIndex >= 0 && newIndex < masterImgs.length) {
-        scrollToMaster(newIndex);
+        await scrollToMaster(newIndex);
     }
 }
 // --- 4. Nút bấm Trái/Phải cho Thumbnail ---
@@ -363,11 +366,16 @@ function changeOverlayImage(step, event) {
     setTimeout(() => {
         exitZoom(); // Reset về trạng thái zoom out
 
-        const masterImgs = document.querySelectorAll('.master-item');
-        if (masterImgs.length === 0) return;
-
-        overlayIndex = (overlayIndex + step + masterImgs.length) % masterImgs.length;
-        overlayImg.src = masterImgs[overlayIndex].src;
+        if (!currentProduct.masterFiles || currentProduct.masterFiles.length === 0) return;
+        
+        overlayIndex = (overlayIndex + step + currentProduct.masterFiles.length) % currentProduct.masterFiles.length;
+        
+        // Build the image path directly from masterFiles
+        const folderPath = currentProduct.image_folder_path;
+        const fileName = currentProduct.masterFiles[overlayIndex];
+        const imagePath = joinUrl(API_BASE_URL, `/${folderPath}/master/${fileName}`);
+        
+        overlayImg.src = imagePath;
 
         // Khi ảnh mới load xong thì hiện lên lại
         overlayImg.onload = () => {

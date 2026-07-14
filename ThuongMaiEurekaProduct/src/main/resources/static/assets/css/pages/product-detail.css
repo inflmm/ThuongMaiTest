@@ -34,12 +34,16 @@
 	background-color: #fff;
     font-size: 14px;
     font-weight: 600;
+    padding-bottom: 3rem;
+    margin-bottom: 3rem;
 }
 
 /* Điều chỉnh lại khung chứa ảnh chính */
 .product-detail-image {
     flex: 1;
-    max-width: 50%; /* Tăng nhẹ để slider thoải mái hơn */
+    max-width: 50%;
+    width: 50%;
+    min-height: 300px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -158,9 +162,11 @@
     border-radius: 8px;
 	width: 60%;
 	margin: auto;
+    aspect-ratio: 1/1;
 }
 .master-slider::-webkit-scrollbar { display: none; }
 .master-item {
+    aspect-ratio: 1/1;
     min-width: 100%;
     scroll-snap-align: start;
     object-fit: contain;
@@ -168,6 +174,7 @@
     cursor: zoom-in;
     position: relative;
     z-index: 5;
+    align-content: center;
 }
 
 /* Container chung (áp dụng cho cả Master và Thumbnail wrapper) */
@@ -193,6 +200,7 @@
 
 /* Nút điều hướng Master */
 .master-container {
+    width: 100%;
     position: relative;
     display: flex;
     align-items: center;
@@ -222,6 +230,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    height: 58px;
     margin-top: 15px;
     padding: 0 10px; /* Tạo khoảng trống cho nút */
 }
@@ -234,12 +243,14 @@
     user-select: none; /* CHỐNG BÔI ĐEN KHI KÉO */
     -webkit-user-select: none;
 	padding-top: 2px;
+    width: 100%;
+    height: 56px;
 }
 .thumbnail-slider img { pointer-events: none; }
 .thumbnail-slider::-webkit-scrollbar { display: none; }
 
 .thumb-item {
-    min-width: 50px;
+    width: 72px;
     height: 50px;
     flex-shrink: 0;
     transition: 0.2s;
@@ -474,9 +485,6 @@
     outline: none !important;
 }
 
-/* Click vào ảnh master thì hiện con trỏ kính lúp */
-.master-item { cursor: zoom-in; }
-
 /* --- [Responsive] --- */
 /* --- [1. TABLET MODE] --- */
 @media (max-width: 1170px) {
@@ -521,6 +529,7 @@
     .product-detail-image{
         margin: 0 auto;
 		max-width: 95%;
+        width: 90%;
     }
 
     .product-detail-info h2{

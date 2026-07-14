@@ -341,9 +341,26 @@ async function handleCheckout() {
 
         if (response.ok) {
             const orderResult = await response.json();
+            
+            const isLoggedIn = checkUserLoginStatus();
+            
+            if (!isLoggedIn) {
+                // Clear guest cart from localStorage
+                localStorage.removeItem('guest_cart');
+            } else {
+                // Reset user cart count to 0
+                localStorage.setItem('user_cart_count', 0);
+            }
+            
+            // Clear the display data
+            window.currentCartItems = [];
+            
+            // Update the badge counter to 0
+            window.dispatchEvent(new Event('cartUpdated'));
+            
             alert(`Đặt hàng thành công! Mã đơn hàng: ${orderResult.id}. Tổng tiền: ${formatCurrency(orderResult.totalAmount)}`);
-
-            // Chuyển hướng đến trang thông báo thành công
+            
+            // Redirect after clearing data
             window.location.href = 'success?orderId=' + orderResult.id;
 
         } else {

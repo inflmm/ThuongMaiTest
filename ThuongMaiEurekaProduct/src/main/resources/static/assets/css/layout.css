@@ -7,8 +7,8 @@
 
 /* --- [Header] --- */
 .top-header {
-		background-color: #027fff;
-		height: auto;
+		background-color: #c6e3c4;
+		height: 50px;
 	}
 
 img.top-header {
@@ -51,6 +51,7 @@ header {
 
 .header-logo {
 	flex-shrink: 0;
+	height: 60px;
 }
 
 img.header-logo {
@@ -348,6 +349,10 @@ img.banner {
 }
 /* --- [2. TABLET MODE ] --- */
 @media (max-width: 992px) {
+	.container-fluid{
+		padding-left: 0;
+		padding-right: 0;
+	}
 	.top-header {
         display: none;
     }
@@ -365,7 +370,7 @@ img.banner {
 		margin-right: 10px;
 	}
 	img.header-logo {
-        content: url('/assets/image/logo-mobile_1e5b7fc485b24cf985b3d63cfa1f88be.svg'); /* Đường dẫn tới logo mobile */
+        content: url('/assets/image/eslint-16-svgrepo-com.svg'); /* Đường dẫn tới logo mobile */
         width: 40px; /* Thường logo mobile sẽ nhỏ gọn hơn */
 		margin-left: 5px;
     }
@@ -377,7 +382,7 @@ img.banner {
 /* --- [3. PHONE MODE] --- */
 @media (max-width: 768px) {
 	img.header-logo {
-        content: url('/assets/image/logo-mobile_1e5b7fc485b24cf985b3d63cfa1f88be.svg'); /* Đường dẫn tới logo mobile */
+        content: url('/assets/image/eslint-16-svgrepo-com.svg'); /* Đường dẫn tới logo mobile */
         width: 30px; /* Thường logo mobile sẽ nhỏ gọn hơn */
 		margin-left: 5px;
     }

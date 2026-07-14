@@ -99,10 +99,10 @@ public class ProductService {
                 .map(p -> {
                     // 2. Nếu có Product, dùng hàm mapping hiện tại của bạn
                     ProductDetailDto dto = getProductDetailDto(p);
-                    
+
                     // 3. Nạp danh sách ảnh vào trường masterFiles từ DTO
                     dto.setMasterFiles(getMasterImages(p.getImage_folder_path()));
-                    
+
                     return dto;
                 });
     }
@@ -116,7 +116,7 @@ public class ProductService {
         dto.setImageUrl(p.getImageUrl());
         dto.setImage_folder_path(p.getImage_folder_path());
         dto.setLongDescription(p.getLongDescription());
-        
+
         // Logic map specifications giữ nguyên
         if (p.getSpecifications() != null) {
             dto.setSpecifications(p.getSpecifications().stream()
@@ -142,7 +142,7 @@ public class ProductService {
                 System.out.println("Total files found: " + files.length);
                 return Arrays.stream(files)
                         .filter(f -> {
-                            boolean match = f.isFile() && f.getName().toLowerCase().endsWith("_master.jpg");
+                            boolean match = f.isFile() && f.getName().toLowerCase().endsWith("_master.webp");
                             if (!match) {
 								System.out.println("Skipped file: " + f.getName());
 							}

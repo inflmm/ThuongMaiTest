@@ -21,14 +21,6 @@ body {
 	margin: 0px;
 }
 
-.container-fluid {
-	max-width: 1220px;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 0 10px;
-}
-
-
 .nav-btn {
 	position: absolute;
 	top: 50%;
@@ -60,7 +52,7 @@ body {
 
 .product-price {
 	margin-top: auto; /* Tự động đẩy phần giá và nút xuống đáy thẻ */
-	color: red;
+	color: #e30019;
 }
 
 /* Container chứa mục Tài khoản để định vị dropdown */

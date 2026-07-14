@@ -26,5 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 		// 2. Đảm bảo các file tĩnh trong project vẫn hoạt động bình thường
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+
+		registry.addResourceHandler("/articles/**").addResourceLocations("file:///C:/ecommerce-uploads/articles/");
 	}
 }
