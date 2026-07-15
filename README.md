@@ -1,5 +1,5 @@
 # ThuongMaiTest - SpringBootLearningProject
-Đây là project tìm hiểu web thương mại dựa trên trang web [GEARVN](https://gearvn.com/), sử dụng Springboot làm công nghệ nền tảng. Hiện tại đang chạy local.
+Đây là project tìm hiểu web thương mại dựa trên trang web [GEARVN](https://gearvn.com/), sử dụng Spring Boot làm công nghệ nền tảng. Hiện tại đang chạy local.
 
 Đồ án không còn thực hiện nữa
 
